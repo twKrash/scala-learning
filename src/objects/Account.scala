@@ -1,12 +1,7 @@
 package objects
 
-/**
- * Created by krash on 8/7/14.
- */
-
-class Account {
-  val id = Account.newUniqueNumber()
-  private var _balance: Double = 0.0
+class Account private(val id: Int, initialBalance: Double) {
+  private var _balance: Double = initialBalance
 
   def deposit(amount: Double) {
     _balance += amount
@@ -16,9 +11,14 @@ class Account {
     _balance -= amount
   }
 
+  def balance = _balance
+
 }
 
 object Account {
+
+  def apply(initialBalance: Double) = new Account(newUniqueNumber(), initialBalance)
+
 
   private var _lastNumber: Int = 0
 
