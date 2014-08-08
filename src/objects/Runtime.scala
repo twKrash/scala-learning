@@ -1,8 +1,5 @@
 package objects
 
-/**
- * Created by krash on 8/7/14.
- */
 object Runtime extends App {
   println(Account.newUniqueNumber(), Account.newUniqueNumber())
 
@@ -37,5 +34,20 @@ object Runtime extends App {
   val origin = Origin(1,2)
   println(origin.toString)
   println(origin.getLocation)
+
+  sealed class Test
+  case object A extends Test
+  case object B extends Test
+  case object C extends Test
+
+  val a1:Test = B
+  println(a1)
+
+  a1 match {
+    case A => println("qwe")
+    case B => println("qwe2")
+    case C => println("qwe3")
+  }
+
 }
 

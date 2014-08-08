@@ -1,8 +1,7 @@
 package classes
 
-/**
- * Created by krash on 8/7/14.
- */
+import objects.Runtime.Test
+
 object Runtime extends App {
   val myCounter = new Counter
   myCounter.dec().dec().dec()
@@ -110,4 +109,11 @@ object Runtime extends App {
 
   println("Too lazy to do rest...")
 
+  val a2:Option[String] = Some("123")
+
+  a2 match {
+    case Some("345") => println("123")
+    case Some(x) => println(x)
+    case None => println("rest")
+  }
 }
