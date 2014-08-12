@@ -49,5 +49,10 @@ object Runtime extends App {
     case C => println("qwe3")
   }
 
+
+  var point = Point(2,3)
+  println(point.toString)
+  println(point.getLocation)
+
 }
 

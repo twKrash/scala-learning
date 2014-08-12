@@ -9,3 +9,8 @@ class Origin private(x: Int, y: Int) extends Point {
 object Origin {
   def apply(x: Int, y: Int) = new Origin(x, y)
 }
+
+
+object Point {
+  def apply(x: Int, y: Int) = new Point(x, y)
+}
