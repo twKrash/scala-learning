@@ -3,12 +3,12 @@ package inheritance
 import scala.collection.mutable.ArrayBuffer
 
 
-abstract class Item {
+abstract class Item{
   def price: Double
 
   def description: String
 
-  class SimpleItem(val price: Double, val description: String)
+  class SimpleItem(val price: Double, val description: String) extends Serializable
 
   def apply(price: Double, description: String) = {
     new SimpleItem(price, description)
@@ -17,7 +17,7 @@ abstract class Item {
 
 }
 
-class Bundle extends Item {
+class Bundle extends Item with Serializable {
 
   private var _items = new ArrayBuffer[super.SimpleItem]
 
