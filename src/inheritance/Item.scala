@@ -3,7 +3,7 @@ package inheritance
 import scala.collection.mutable.ArrayBuffer
 
 
-abstract class Item{
+abstract class Item {
   def price: Double
 
   def description: String
@@ -38,5 +38,14 @@ object Bundle extends App {
   val bundle = new Bundle
   bundle(1, "Test")
   bundle(2, "Test2")
+  val asd = bundle(2, "Щдщдщ")
+
+
   println(bundle.price, bundle.description)
+
+  val bundle2 = new Bundle
+  val qwe = bundle2(5, "hello")
+
+  println(asd.getClass == qwe.getClass)
+
 }

@@ -12,14 +12,14 @@ object scandir extends App {
   for (d <- subdirs(dir)) println(d)
 
   //  Dont have this packge
-  //  import java.nio.file._
-  //  def makeFileVisitor(f: (Path) => Unit) = new SimpleFileVisitor[Path] {
-  //    override def visitFile(p: Path, attrs: attributes.BasicFileAttributes) = {
-  //      f(p)
-  //      FileVisitResult.CONTINUE
-  //    }
-  //  }
-  //
-  //
-  //  Files.walkFileTree(dir.toPath, (f: Path) => println(f))
+//    import java.nio.file._
+//    def makeFileVisitor(f: (Path) => Unit) = new SimpleFileVisitor[Path] {
+//      override def visitFile(p: Path, attrs: attributes.BasicFileAttributes) = {
+//        f(p)
+//        FileVisitResult.CONTINUE
+//      }
+//    }
+
+
+//    Files.walkFileTree(dir.toPath, (f: Path) => println(f))
 }
