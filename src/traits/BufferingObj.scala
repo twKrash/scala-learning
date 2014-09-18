@@ -9,9 +9,11 @@ trait Buffering extends InputStream {
     new BufferedInputStream(this)
   }
 
-  abstract override def read = bis.read()
+  abstract override def read = super.read()
 
-  override def read(byte: Array[Byte], off: Int, len: Int) = super.read(byte, off, len)
+  override def read(byte: Array[Byte], off: Int, len: Int) = {
+    super.read(byte, off, len)
+  }
 
   override def available = bis.available
 
@@ -23,18 +25,16 @@ trait Buffering extends InputStream {
 
 }
 
-
 object BufferingObj extends App {
   val fis = new FileInputStream("/Users/krash/test.txt") with Buffering
   var content: Int = 0
   var counter: Int = 0
-  while ((content = fis.read()) != -1) {
-    if (counter == 10000) {
+  while ((content = fis.read()) != -1 && counter < 101) {
+    counter += 1
+    if (counter >= 100) {
       println("Stack Overflow!")
-      -1
     }
     print(content.toChar)
-    counter += 1
   }
   fis.close()
 }
