@@ -43,7 +43,7 @@ object lect extends App {
 
   runInThread {
     println("Hi")
-    Thread.sleep(1000)
+    Thread.sleep(10000)
     println("Bye!")
   }
 
@@ -74,4 +74,15 @@ object lect extends App {
   println(indexOf("Hello", 't'))
 
 
+  def qwe(q: => Int )= {
+    0
+  }
+
+  def qwe2(): Int={
+    while(true){}
+    0
+  }
+
+  val r = qwe(qwe2())
+  println(r)
 }
