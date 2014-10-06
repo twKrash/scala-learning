@@ -12,7 +12,14 @@ object ex7 extends App {
   def sumLeaf(n: BinaryTree): Int = {
     n match {
       case Leaf(x) => x
-      case Node(leafs@_*) => leafs.map(sumLeaf).sum
+      //      case Node(leafs@_*) => leafs.map(sumLeaf).sum
+      case Node(leafs@_*) => (for (leaf <- leafs) yield sumLeaf(leaf)).sum
+      //      case Node(leafs@_*) => (for (leaf <- leafs) yield leaf match {
+      //        case Leaf(x) => x
+      //        case Node(x) => sumLeaf(x)
+      //        case Node(x,y) => sumLeaf(x) + sumLeaf(y)
+      //        case _ => 0
+      //      }).sum
     }
   }
 
