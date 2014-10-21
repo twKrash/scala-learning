@@ -50,11 +50,68 @@ object lect extends App {
   val friendOpt = friends.get("Wilma")
   val friendOrNull = friendOpt.orNull // Null <:< A
 
-//  def firstLast[A, C <:Iterable[A]](it:C) = (it.head,it.last) //Wrong
-  def firstLast[A, C](it:C)(implicit ev: C <:< Iterable[A]) = (it.head,it.last) //Correct with curring
-  println(firstLast(List(1,2,3)))
+  //  def firstLast[A, C <:Iterable[A]](it:C) = (it.head,it.last) //Wrong
+  def firstLast[A, C](it: C)(implicit ev: C <:< Iterable[A]) = (it.head, it.last) //Correct with curring
+  println(firstLast(List(1, 2, 3)))
 
-//  def corresponds[B](that: Seq[B])(m: (A,B) => Boolean):Boolean = {...}
+  //  def corresponds[B](that: Seq[B])(m: (A,B) => Boolean):Boolean = {...}
 
+
+  object MySimpleHelper {
+
+    implicit class StringExtended(str: String) {
+      def sayIt = println(str)
+
+      def sayItLouderBitch = println(str.toUpperCase + "!!!")
+    }
+
+  }
+
+  import ch17.lect.MySimpleHelper._
+
+  "oh gosh".sayIt
+
+  "oh gosh".sayItLouderBitch
+
+  implicit val myValue: Int = 5
+
+  object Jules {
+    def doesHeLookLikeABitch(answer: String)(implicit times: Int) = {
+      println(times)
+      for (x <- 1 to times) println(answer)
+    }
+  }
+
+  Jules.doesHeLookLikeABitch("WHAT?")
+
+  implicit val timeFuncName: String = "unknown"
+
+  object bench {
+    def time[R](block: => R)(implicit name: String): R = {
+      val t0 = System.nanoTime()
+      val result = block // call-by-name
+      val t1 = System.nanoTime()
+      println("[" + name + "]: Elapsed time: " + (t1 - t0) + "ns")
+      result
+    }
+
+    def memory[R](block: => R)(implicit name: String): R = {
+      val m0 = Runtime.getRuntime.totalMemory()
+      val result = block // call-by-name
+      val m1 = Runtime.getRuntime.freeMemory()
+      println("[" + name + "]: Memory taken: " + (m0 - m1) + "")
+      result
+    }
+  }
+
+  import ch17.lect.bench._
+
+  memory {
+    println("asd")
+  }
+
+  time {
+    println("asd")
+  }
 
 }
