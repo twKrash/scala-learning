@@ -12,20 +12,18 @@ case class Pos(x: Int, y: Int) {
 
 class Solver(private val figures: List[Figures], private val m: Int, private val n: Int) {
 
-  private val _solutions: Solution = Map()
-
   def solve(): List[Solution] = {
-    def solveAcc(state: Solution, figures: List[Figures], availablePositions: Set[Pos]): List[Solution] = {
-
+    def solveAcc(state: Solution, figures: List[Figures] = List(), availablePositions: List[Pos]): List[Solution] = {
       figures match {
-        case Nil => List(state)
+        case List() =>
+          List(state)
         case fig :: otherFig => val next = for {
-          pos <- availablePositions.toList
+          pos <- availablePositions
 
           if state.forall { case (oPos, oFig) => !fig.canMove(pos, oPos)}
           nextState: Solution = state + (pos -> fig)
-          newAvailablePositions = (availablePositions - pos).filter {
-            oPos => !fig.canMove(oPos, pos)
+          newAvailablePositions = availablePositions.filter {
+            oPos => !fig.canMove(oPos, pos) && oPos != pos
           }
           nextSolution <- solveAcc(nextState, otherFig, newAvailablePositions)
         } yield nextSolution
@@ -35,12 +33,10 @@ class Solver(private val figures: List[Figures], private val m: Int, private val
     val availablePositions = (for {
       y <- 0 until n
       x <- 0 until m
-    } yield Pos(x, y)).toSet
+    } yield Pos(x, y)).toList
 
     solveAcc(Map(), figures, availablePositions)
   }
-
-  def solutions = _solutions
 
   def dimensions = (m, n)
 
@@ -64,7 +60,7 @@ object Solver {
       solutionsList
     }
 
-    println("Solutions:" + solutionsList.size)
+    println("Solutions:" + solutionsList.size.toLong)
     for (solution <- list) {
       val cover = ("---" * m) + "-"
       val limitX = m - 1
